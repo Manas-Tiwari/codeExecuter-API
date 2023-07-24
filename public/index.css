@@ -1,5 +1,10 @@
 /* CSS code for the navbar and footer */
 
+* {
+  /* margin: 10px; */
+  padding: 12px;
+}
+
 body {
   margin: 0;
   padding: 0;

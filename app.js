@@ -27,7 +27,9 @@ app.use(
   express.static(join(dirname(fileURLToPath(import.meta.url)), "public"))
 );
 
-
+app.get('/', (req, res) => {
+  res.render('home.hbs');
+})
 app.post('/signup', signup);
 app.post('/login', login);
 
