@@ -4,6 +4,22 @@ import User from "./user.schema.js";
 
 
 /**
+ * Get all registered Users.
+ * @param  {Object}  req  Express request Object.
+ * @param  {Object}  res  Express response Object.
+ * @return {Object}       All Usernames.
+ * 
+ */
+export const getAllUsers = async (req, res) => {
+  const users = await User.find({ });
+  const usernames_list = [];
+  for (let {username, email, results, createdAt} of users) {
+    usernames_list.push({username, email, results, createdAt});
+  }
+  res.send({ Users: usernames_list });
+};
+
+/**
  * Get User information.
  * @param  {Object}  req  Express request Object.
  * @param  {Object}  res  Express response Object.
@@ -81,4 +97,20 @@ export const getSubmissions = async (req, res) => {
     console.log("Error retreiving requested details.", e);
     res.status(500).send({ error: e });
   }
+};
+
+
+/**
+ * Get all registered Users.
+ * @param  {Object}  req  Express request Object.
+ * @param  {Object}  res  Express response Object.
+ * @return {Object}       Deletes given user.
+ * 
+ */
+export const deleteUser = async (req, res) => {
+  if (req.params.username != req.user.username) {
+    res.sendStatus(401);
+  }
+  const user = await User.deleteOne({ username: req.params.username });
+  res.send({ user, req_user: req.user, msg: "User deleted successfully" });
 };

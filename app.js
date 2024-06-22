@@ -8,6 +8,7 @@ import { dirname, join } from "path";
 
 import { signup, login, protect } from './src/auth.js';
 import user from "./src/user.router.js";
+import { getAllUsers } from "./src/user.controller.js";
 
 const app = express();
 
@@ -27,9 +28,14 @@ app.use(
   express.static(join(dirname(fileURLToPath(import.meta.url)), "public"))
 );
 
-app.get('/', (req, res) => {
+
+app.get('/', (req, res) => {    
   res.render('home.hbs');
 })
+
+// Gets all registered usernames, public route
+app.get('/users', getAllUsers);
+
 app.post('/signup', signup);
 app.post('/login', login);
 

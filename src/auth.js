@@ -66,7 +66,7 @@ export const protect = async (req, res, next) => {
   const bearer = req.headers.authorization;
 
   if (!bearer || !bearer.startsWith("Bearer ")) {
-    return res.status(401).end();
+    return res.status(401).send({status: 401 ,msg: "Not Authorized"});
   }
 
   const token = bearer.split("Bearer ")[1].trim();
